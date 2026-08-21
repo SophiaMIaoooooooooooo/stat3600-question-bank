@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STAT3600 Question Bank</title>
+  <style>
+    :root{
+      --bg:#f6f8fc;
+      --card:#ffffff;
+      --line:#dfe6f1;
+      --text:#1f2937;
+      --muted:#667085;
+      --blue:#2855d9;
+      --blue2:#183fa0;
+      --green:#1d7a50;
+      --greenbg:#e9f8f0;
+      --shadow:0 14px 36px rgba(15,23,42,.08);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left,#eaf0ff 0,transparent 24%),
+        radial-gradient(circle at top right,#eef9f4 0,transparent 20%),
+        var(--bg);
+    }
+
+    .wrap{
+      max-width:1280px;
+      margin:0 auto;
+      padding:24px 18px 64px;
+    }
+
+    .header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .header h1{
+      margin:0;
+      font-size:32px;
+      line-height:1.05;
+    }
+
+    .header p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#eef3ff;
+      color:var(--blue);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .section{
+      background:rgba(255,255,255,.96);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      padding:22px;
+      margin-top:18px;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+
+    .section-head h2{
+      margin:0;
+      font-size:24px;
+    }
+
+    .section-head p{
+      margin:5px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+      max-width:850px;
+    }
+
+    .mindmap-box{
+      background:#f8fafc;
+      border:1px solid #e5eaf3;
+      border-radius:18px;
+      padding:10px;
+      overflow:hidden;
+    }
+
+    .mindmap-box img{
+      display:block;
+      width:100%;
+      height:auto;
+      border-radius:12px;
+      background:white;
+    }
+
+    .toolbar{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+
+    .search{
+      flex:1 1 320px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:#fbfcfe;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 14px;
+    }
+
+    .search input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      font-size:14px;
+      color:var(--text);
+    }
+
+    .hint{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .qb-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+      align-items:start;
+    }
+
+    .module{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 10px 24px rgba(15,23,42,.05);
+    }
+
+    .module-head{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:15px 16px 12px;
+      border-bottom:1px solid #edf1f6;
+      background:#fcfdff;
+    }
+
+    .num{
+      width:34px;
+      height:34px;
+      border-radius:11px;
+      display:grid;
+      place-items:center;
+      color:white;
+      font-weight:800;
+      font-size:14px;
+      flex:0 0 34px;
+    }
+
+    .n1{background:#ef4b3e}
+    .n2{background:#f28c28}
+    .n3{background:#e8b913}
+    .n4{background:#28a96b}
+    .n5{background:#1aa28a}
+    .n6{background:#2686bd}
+    .n7{background:#8f42b0}
+
+    .module h3{
+      margin:1px 0 2px;
+      font-size:18px;
+      line-height:1.22;
+    }
+
+    .sub{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+
+    .topics{
+      list-style:none;
+      margin:0;
+      padding:10px 12px 14px;
+    }
+
+    .topic{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 11px;
+      background:#fbfcfe;
+      border:1px solid transparent;
+      border-radius:12px;
+      margin-top:8px;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+
+    .topic:hover{
+      transform:translateX(2px);
+      background:#f4f7fd;
+      border-color:#dbe4f2;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#cbd5e1;
+      flex:0 0 10px;
+    }
+
+    .topic-text{
+      flex:1;
+      font-size:13px;
+      line-height:1.4;
+    }
+
+    .badge{
+      font-size:10px;
+      padding:4px 7px;
+      border-radius:999px;
+      background:#eff2f6;
+      color:#6b7280;
+      white-space:nowrap;
+    }
+
+    .topic.has-pdf .dot{
+      background:var(--green);
+      box-shadow:0 0 0 4px var(--greenbg);
+    }
+
+    .topic.has-pdf .badge{
+      background:var(--greenbg);
+      color:var(--green);
+    }
+
+    .empty{
+      padding:28px 14px 4px;
+      text-align:center;
+      color:var(--muted);
+      font-size:14px;
+      display:none;
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:1000;
+      background:rgba(15,23,42,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .modal.show{display:flex}
+
+    .modal-card{
+      width:min(760px,100%);
+      max-height:85vh;
+      overflow:auto;
+      background:white;
+      border-radius:20px;
+      border:1px solid var(--line);
+      box-shadow:0 24px 60px rgba(15,23,42,.2);
+    }
+
+    .modal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      padding:18px 20px 14px;
+      border-bottom:1px solid #eef2f6;
+    }
+
+    .modal-head h4{
+      margin:0 0 4px;
+      font-size:18px;
+    }
+
+    .modal-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .close{
+      border:none;
+      background:#f3f4f6;
+      border-radius:10px;
+      padding:8px 10px;
+      cursor:pointer;
+    }
+
+    .pdf-list{
+      padding:12px 14px 16px;
+      display:grid;
+      gap:10px;
+    }
+
+    .pdf-link{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:13px 14px;
+      border:1px solid #e5eaf3;
+      border-radius:12px;
+      text-decoration:none;
+      color:var(--text);
+      background:#fbfcfe;
+    }
+
+    .pdf-link:hover{
+      background:#f4f7fd;
+      border-color:#dbe4f2;
+    }
+
+    .pdf-meta{
+      color:var(--muted);
+      font-size:12px;
+      margin-top:4px;
+    }
+
+    @media(max-width:900px){
+      .qb-grid{grid-template-columns:1fr}
+      .header h1{font-size:28px}
+      .section{padding:16px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="header">
+      <div>
+        <h1>STAT3600 Question Bank</h1>
+        <p>Linear Statistical Analysis · Mind Map + Interactive Question Bank</p>
+      </div>
+      <div class="tag">HKU · STAT3600</div>
+    </div>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Course Mind Map</h2>
+          <p>A visual overview of the 7 main units in STAT3600.</p>
+        </div>
+      </div>
+
+      <div class="mindmap-box">
+        <img src="stat3600_mindmap.png" alt="STAT3600 Linear Statistical Analysis Mind Map">
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Question Bank</h2>
+          <p>Click any topic to open the related PDF question file(s) stored in Supabase.</p>
+        </div>
+        <div class="tag">Supabase PDFs</div>
+      </div>
+
+      <div class="toolbar">
+        <div class="search">
+          <span>🔎</span>
+          <input id="searchInput" placeholder="Search topics, e.g. ANOVA or Cook's distance">
+        </div>
+        <div class="hint">Green dot = PDF available</div>
+      </div>
+
+      <div class="qb-grid" id="qbGrid">
+
+        <section class="module">
+          <div class="module-head">
+            <div class="num n1">1</div>
+            <div>
+              <h3>Basic Theory</h3>
+              <div class="sub">Foundational distributions and quadratic forms</div>
+            </div>
+          </div>
+          <ul class="topics">
+            <li class="topic" data-id="m1-t1"><span class="dot"></span><span class="topic-text">Multivariate normal distribution</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m1-t2"><span class="dot"></span><span class="topic-text">Normal-related distributions</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m1-t3"><span class="dot"></span><span class="topic-text">Quadratic form</span><span class="badge">Questions</span></li>
+          </ul>
+        </section>
+
+        <section class="module">
+          <div class="module-head">
+            <div class="num n2">2</div>
+            <div>
+              <h3>Simple Linear Regression</h3>
+              <div class="sub">One predictor</div>
+            </div>
+          </div>
+          <ul class="topics">
+            <li class="topic" data-id="m2-t1"><span class="dot"></span><span class="topic-text">Least squares method</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m2-t2"><span class="dot"></span><span class="topic-text">Analysis of variance (ANOVA)</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m2-t3"><span class="dot"></span><span class="topic-text">Coefficient of determination (R²)</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m2-t4"><span class="dot"></span><span class="topic-text">Hypothesis tests & confidence intervals</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m2-t5"><span class="dot"></span><span class="topic-text">Prediction</span><span class="badge">Questions</span></li>
+          </ul>
+        </section>
+
+        <section class="module">
+          <div class="module-head">
+            <div class="num n3">3</div>
+            <div>
+              <h3>Multiple Linear Regression</h3>
+              <div class="sub">Multiple predictors and model comparison</div>
+            </div>
+          </div>
+          <ul class="topics">
+            <li class="topic" data-id="m3-t1"><span class="dot"></span><span class="topic-text">Least squares method</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m3-t2"><span class="dot"></span><span class="topic-text">Analysis of variance (ANOVA)</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m3-t3"><span class="dot"></span><span class="topic-text">Coefficient of determination (R²)</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m3-t4"><span class="dot"></span><span class="topic-text">Reduced vs full models</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m3-t5"><span class="dot"></span><span class="topic-text">Hypothesis tests & confidence intervals</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m3-t6"><span class="dot"></span><span class="topic-text">Prediction</span><span class="badge">Questions</span></li>
+          </ul>
+        </section>
+
+        <section class="module">
+          <div class="module-head">
+            <div class="num n4">4</div>
+            <div>
+              <h3>One-way Classification Models</h3>
+              <div class="sub">One-factor ANOVA</div>
+            </div>
+          </div>
+          <ul class="topics">
+            <li class="topic" data-id="m4-t1"><span class="dot"></span><span class="topic-text">One-way ANOVA</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m4-t2"><span class="dot"></span><span class="topic-text">Analysis of treatment effects</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m4-t3"><span class="dot"></span><span class="topic-text">Contrasts</span><span class="badge">Questions</span></li>
+          </ul>
+        </section>
+
+        <section class="module">
+          <div class="module-head">
+            <div class="num n5">5</div>
+            <div>
+              <h3>Two-way Classification Models</h3>
+              <div class="sub">Interactions, balanced ANOVA and blocking</div>
+            </div>
+          </div>
+          <ul class="topics">
+            <li class="topic" data-id="m5-t1"><span class="dot"></span><span class="topic-text">Interactions</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m5-t2"><span class="dot"></span><span class="topic-text">Two-way ANOVA for balanced data structures</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m5-t3"><span class="dot"></span><span class="topic-text">Analysis of treatment effects</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m5-t4"><span class="dot"></span><span class="topic-text">Contrasts</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m5-t5"><span class="dot"></span><span class="topic-text">Randomized complete block design (RCBD)</span><span class="badge">Questions</span></li>
+          </ul>
+        </section>
+
+        <section class="module">
+          <div class="module-head">
+            <div class="num n6">6</div>
+            <div>
+              <h3>Universal Approach to Linear Modeling</h3>
+              <div class="sub">Regression representation of classification models</div>
+            </div>
+          </div>
+          <ul class="topics">
+            <li class="topic" data-id="m6-t1"><span class="dot"></span><span class="topic-text">Dummy variables</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m6-t2"><span class="dot"></span><span class="topic-text">Regression representation of one-way models</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m6-t3"><span class="dot"></span><span class="topic-text">Regression representation of two-way (unbalanced) models</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m6-t4"><span class="dot"></span><span class="topic-text">ANCOVA models</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m6-t5"><span class="dot"></span><span class="topic-text">Concomitant variables</span><span class="badge">Questions</span></li>
+          </ul>
+        </section>
+
+        <section class="module">
+          <div class="module-head">
+            <div class="num n7">7</div>
+            <div>
+              <h3>Regression Diagnostics</h3>
+              <div class="sub">Assumptions, outliers and influential observations</div>
+            </div>
+          </div>
+          <ul class="topics">
+            <li class="topic" data-id="m7-t1"><span class="dot"></span><span class="topic-text">Leverage</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m7-t2"><span class="dot"></span><span class="topic-text">Residual plot</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m7-t3"><span class="dot"></span><span class="topic-text">Normal probability plot</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m7-t4"><span class="dot"></span><span class="topic-text">Outlier</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m7-t5"><span class="dot"></span><span class="topic-text">Studentized residual</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m7-t6"><span class="dot"></span><span class="topic-text">Influential observation</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m7-t7"><span class="dot"></span><span class="topic-text">Cook's distance</span><span class="badge">Questions</span></li>
+            <li class="topic" data-id="m7-t8"><span class="dot"></span><span class="topic-text">Multicollinearity</span><span class="badge">Questions</span></li>
+          </ul>
+        </section>
+
+      </div>
+
+      <div id="emptyState" class="empty">No topics match your search.</div>
+    </section>
+
+  </div>
+
+  <div class="modal" id="pdfModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h4 id="modalTitle">Question PDFs</h4>
+          <p id="modalSub">Choose one PDF to open.</p>
+        </div>
+        <button class="close" id="closeModal">Close</button>
+      </div>
+      <div class="pdf-list" id="pdfList"></div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://zebstanxldsfkaylicua.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_lNvWIZFOD5jgnSaWJezKmg_Ko24dvcs";
+    const BUCKET = "question-pdfs";
+
+    const topics = [...document.querySelectorAll(".topic")];
+    const modules = [...document.querySelectorAll(".module")];
+    const searchInput = document.getElementById("searchInput");
+    const emptyState = document.getElementById("emptyState");
+    const modal = document.getElementById("pdfModal");
+    const pdfList = document.getElementById("pdfList");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalSub = document.getElementById("modalSub");
+
+    function encodePath(path){
+      return path.split("/").map(encodeURIComponent).join("/");
+    }
+
+    function publicPdfUrl(path){
+      return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${encodePath(path)}`;
+    }
+
+    async function fetchRowsForTopic(topicId){
+      const url = new URL(`${SUPABASE_URL}/rest/v1/questions`);
+      url.searchParams.set("topic_id", `eq.${topicId}`);
+      url.searchParams.set("select", "id,topic_id,title,pdf_path,difficulty,source,year,created_at");
+      url.searchParams.set("order", "created_at.asc");
+
+      const res = await fetch(url.toString(), {
+        headers:{
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`
+        }
+      });
+
+      if(!res.ok){
+        throw new Error(`Supabase request failed: ${res.status}`);
+      }
+
+      return await res.json();
+    }
+
+    function openModal(topicName, rows){
+      modalTitle.textContent = topicName;
+      modalSub.textContent = `${rows.length} PDF file(s) found`;
+
+      pdfList.innerHTML = rows.map(row => {
+        const url = publicPdfUrl(row.pdf_path);
+        const meta = [
+          row.source ? `Source: ${row.source}` : null,
+          row.year ? `Year: ${row.year}` : null,
+          row.difficulty ? `Difficulty: ${row.difficulty}` : null
+        ].filter(Boolean).join(" · ");
+
+        return `
+          <a class="pdf-link" href="${url}" target="_blank" rel="noopener noreferrer">
+            <div>
+              <div><strong>${row.title || row.pdf_path}</strong></div>
+              <div class="pdf-meta">${meta || "Open PDF"}</div>
+            </div>
+            <div>Open ↗</div>
+          </a>
+        `;
+      }).join("");
+
+      modal.classList.add("show");
+    }
+
+    function closeModal(){
+      modal.classList.remove("show");
+    }
+
+    document.getElementById("closeModal").addEventListener("click", closeModal);
+    modal.addEventListener("click", e => {
+      if(e.target === modal) closeModal();
+    });
+
+    topics.forEach(topic => {
+      topic.addEventListener("click", async () => {
+        const topicId = topic.dataset.id;
+        const topicName = topic.querySelector(".topic-text").textContent.trim();
+
+        try{
+          const rows = await fetchRowsForTopic(topicId);
+
+          if(rows.length === 0){
+            alert(`No PDFs found yet for: ${topicName}`);
+            return;
+          }
+
+          if(rows.length === 1){
+            window.open(publicPdfUrl(rows[0].pdf_path), "_blank", "noopener,noreferrer");
+            return;
+          }
+
+          openModal(topicName, rows);
+
+        }catch(err){
+          console.error(err);
+          alert("Could not load PDFs from Supabase.");
+        }
+      });
+    });
+
+    async function markAvailableTopics(){
+      for(const topic of topics){
+        try{
+          const rows = await fetchRowsForTopic(topic.dataset.id);
+          if(rows.length > 0){
+            topic.classList.add("has-pdf");
+            topic.querySelector(".badge").textContent = rows.length === 1 ? "1 PDF" : `${rows.length} PDFs`;
+          }
+        }catch(err){
+          console.error(err);
+        }
+      }
+    }
+
+    function filterTopics(){
+      const q = searchInput.value.trim().toLowerCase();
+      let anyVisible = false;
+
+      modules.forEach(module => {
+        const items = [...module.querySelectorAll(".topic")];
+        let visibleCount = 0;
+
+        items.forEach(item => {
+          const text = item.innerText.toLowerCase();
+          const show = !q || text.includes(q);
+          item.style.display = show ? "flex" : "none";
+          if(show) visibleCount++;
+        });
+
+        module.style.display = visibleCount ? "block" : "none";
+        if(visibleCount) anyVisible = true;
+      });
+
+      emptyState.style.display = anyVisible ? "none" : "block";
+    }
+
+    searchInput.addEventListener("input", filterTopics);
+
+    markAvailableTopics();
+  </script>
+
+</body>
+</html>
